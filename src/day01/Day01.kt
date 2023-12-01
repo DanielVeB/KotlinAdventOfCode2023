@@ -30,7 +30,7 @@ fun main() {
     val testPart2Input = readInput("day01/Day01p2_test")
     check(part2(testPart2Input) == 281)
 
-    val inputPart2 = readInput("day01/Day01p2")
+    val inputPart2 = readInput("day01/Day01")
     part2(inputPart2).println()
 }
 
