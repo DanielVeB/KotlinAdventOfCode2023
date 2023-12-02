@@ -1,8 +1,3 @@
-package day01
-
-import println
-import readInput
-
 fun main() {
     fun part1(input: List<String>): Int {
         return input.sumOf {
@@ -20,17 +15,17 @@ fun main() {
         }
     }
 
-    val testInput = readInput("day01/Day01_test")
+    val testInput = readInput("Day01_test")
     check(part1(testInput) == 142)
 
-    val input = readInput("day01/Day01")
+    val input = readInput("Day01")
     part1(input).println()
 
 
-    val testPart2Input = readInput("day01/Day01p2_test")
+    val testPart2Input = readInput("Day01p2_test")
     check(part2(testPart2Input) == 281)
 
-    val inputPart2 = readInput("day01/Day01")
+    val inputPart2 = readInput("Day01")
     part2(inputPart2).println()
 }
 
