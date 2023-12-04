@@ -6,9 +6,7 @@ fun main() {
         return input.map {
             ScratchcardsGame.fromString(it).getWinningPriceSize()
         }.filter { it >= 1 }.sumOf { 2.0.pow((it - 1).toDouble()) }.roundToInt()
-
     }
-
 
     fun part2(input: List<String>): Int {
 
@@ -25,7 +23,6 @@ fun main() {
         }
 
         return cards.values.sum()
-
     }
 
     val testInput = readInput("Day04_test")
@@ -61,9 +58,7 @@ private class ScratchcardsGame(val id: Int, val bets: List<Int>, val winningNumb
         }
     }
 
-
     fun getWinningPriceSize(): Int {
         return this.bets.filter { this.winningNumbers.contains(it) }.size
     }
 }
-
