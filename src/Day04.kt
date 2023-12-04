@@ -9,15 +9,29 @@ fun main() {
 
     }
 
+
     fun part2(input: List<String>): Int {
-        return 0
+
+        val cards = mutableMapOf<Int, Int>() // id of card and size
+
+        input.mapIndexed { index, it ->
+            cards[index + 1] = 1
+            ScratchcardsGame.fromString(it)
+        }.forEach {
+            val winNumberOfCards = it.getWinningPriceSize()
+            for (index in it.id + 1..it.id + winNumberOfCards) {
+                cards[index] = cards.getValue(index) + 1 * cards.getValue(it.id)
+            }
+        }
+
+        return cards.values.sum()
 
     }
 
     val testInput = readInput("Day04_test")
 
     check(part1(testInput) == 13)
-    check(part2(testInput) == 0)
+    check(part2(testInput) == 30)
 
     val input = readInput("Day04")
 
@@ -30,7 +44,7 @@ private class ScratchcardsGame(val id: Int, val bets: List<Int>, val winningNumb
     companion object {
         fun fromString(input: String): ScratchcardsGame {
             val splits = input.split(':', '|')
-//            val id = splits[0].split(' ')[1].toInt()
+            val id = splits[0].split(' ').last { it.isNotEmpty() }.toInt()
             val bets = splits[1]
                 .split(' ')
                 .map { it.replace(" ", "") }
@@ -43,7 +57,7 @@ private class ScratchcardsGame(val id: Int, val bets: List<Int>, val winningNumb
                 .filter { it.isNotEmpty() }
                 .map { it.toInt() }.toList()
 
-            return ScratchcardsGame(0, bets, winningNumbers)
+            return ScratchcardsGame(id, bets, winningNumbers)
         }
     }
 

@@ -25,8 +25,7 @@ fun main() {
     val testPart2Input = readInput("Day01p2_test")
     check(part2(testPart2Input) == 281)
 
-    val inputPart2 = readInput("Day01")
-    part2(inputPart2).println()
+    part2(input).println()
 }
 
 fun String.getFirstDigitFromLeft(): Int {
