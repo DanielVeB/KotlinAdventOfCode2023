@@ -14,7 +14,7 @@ fun main() {
         val seeds = seedsData.seeds
             .chunked(2) { (first, second) -> Pair(first, second) }
 
-        val d = 0.rangeTo(Int.MAX_VALUE).first {
+        return 0.rangeTo(Int.MAX_VALUE).first {
             val v = seedsData.maps.foldRight(it.toLong()) { triples, acc  ->
                 val t = triples.firstOrNull { t -> t.second <= acc && t.second + t.third >= acc }
                     ?.let { t -> t.first + (acc - t.second) } ?: run { acc }
@@ -22,9 +22,6 @@ fun main() {
             }
             seeds.any { p -> p.first <= v && p.first + p.second >=v  }
         }
-
-        return d
-
     }
 
     val testInput = readInput("Day05_test")
