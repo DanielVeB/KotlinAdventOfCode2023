@@ -1,4 +1,3 @@
-
 fun main() {
     fun part1(input: List<String>): Int {
         val seedsData = Seeds.fromString(input)
@@ -13,24 +12,18 @@ fun main() {
     fun part2(input: List<String>): Int {
         val seedsData = Seeds.fromString(input)
         val seeds = seedsData.seeds
-            .chunked(2){ (first, second) -> Pair(first, second) }
+            .chunked(2) { (first, second) -> Pair(first, second) }
 
-        var targetLocation = 99999999999L
-        for (seed in seeds) {
-            for (s in seed.first.rangeTo(seed.first + seed.second)) {
-                val min = seedsData.maps.fold(s) { acc, triples ->
-                    triples.firstOrNull { t -> t.first <= acc && t.first + t.third > acc }
-                        ?.let { t -> t.second + acc - t.first } ?: run { acc }
-                }
-
-                if (targetLocation > min) {
-                    println(min)
-                    targetLocation = min
-                }
+        val d = 0.rangeTo(Int.MAX_VALUE).first {
+            val v = seedsData.maps.foldRight(it.toLong()) { triples, acc  ->
+                val t = triples.firstOrNull { t -> t.second <= acc && t.second + t.third >= acc }
+                    ?.let { t -> t.first + (acc - t.second) } ?: run { acc }
+                t
             }
+            seeds.any { p -> p.first <= v && p.first + p.second >=v  }
         }
 
-        return targetLocation.toInt()
+        return d
 
     }
 
@@ -44,6 +37,7 @@ fun main() {
     part1(input).println()
     part2(input).println()
 }
+
 class Seeds(val seeds: List<Long>, val maps: List<MutableList<Triple<Long, Long, Long>>>) {
 
     companion object {
